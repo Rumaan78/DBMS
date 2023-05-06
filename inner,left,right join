@@ -1,0 +1,88 @@
+create table studentcourse(courseid int,rollno int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc studentcourse;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| courseid | int  | YES  |     | NULL    |       |
+| rollno   | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into studentcourse values(1,1),(2,2),(2,3),(3,4),(1,5),(4,9),(5,10),(4,11);
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+------------+------+------------+
+| rollno | name       | age  | address    |
++--------+------------+------+------------+
+|      1 | harsh      |   18 | delhi      |
+|      2 | pratik     |   19 | bihar      |
+|      3 | riyanka    |   20 | silungur   |
+|      4 | deep       |   18 | ramnagar   |
+|      5 | saptharahi |   19 | kolkata    |
+|      6 | dhanraj    |   20 | barabajar  |
+|      7 | rohith     |   18 | bhalurghat |
+|      9 | niraj      |   19 | alipur     |
++--------+------------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from studentcourse;
++----------+--------+
+| courseid | rollno |
++----------+--------+
+|        1 |      1 |
+|        2 |      2 |
+|        2 |      3 |
+|        3 |      4 |
+|        1 |      5 |
+|        4 |      9 |
+|        5 |     10 |
+|        4 |     11 |
++----------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select student.rollno,studentcourse.courseid from student inner join studentcourse on student.rollno = studentcourse.rollno;
++--------+----------+
+| rollno | courseid |
++--------+----------+
+|      1 |        1 |
+|      2 |        2 |
+|      3 |        2 |
+|      4 |        3 |
+|      5 |        1 |
+|      9 |        4 |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select student.name,studentcourse.courseid from student left join studentcourse on student.rollno = studentcourse.rollno;
++------------+----------+
+| name       | courseid |
++------------+----------+
+| harsh      |        1 |
+| pratik     |        2 |
+| riyanka    |        2 |
+| deep       |        3 |
+| saptharahi |        1 |
+| dhanraj    |     NULL |
+| rohith     |     NULL |
+| niraj      |        4 |
++------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select student.age,studentcourse.rollno from student right join studentcourse on student.rollno = studentcourse.rollno;
++------+--------+
+| age  | rollno |
++------+--------+
+|   18 |      1 |
+|   19 |      2 |
+|   20 |      3 |
+|   18 |      4 |
+|   19 |      5 |
+|   19 |      9 |
+| NULL |     10 |
+| NULL |     11 |
++------+--------+
+8 rows in set (0.00 sec)
